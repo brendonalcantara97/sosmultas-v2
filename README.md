@@ -22,6 +22,7 @@ Este repositório contém o plano, checklist, design system e arquivos de execu�
 - `agent.md`
 - `claude.md`
 - `SEGURANCA-PARA-TESTES.md`
+- `ENV-PRODUCAO-SOS-MULTAS.md`
 
 ## Working rules
 

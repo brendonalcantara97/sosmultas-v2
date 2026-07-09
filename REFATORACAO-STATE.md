@@ -12,6 +12,7 @@
 - [x] README do repositório criado
 - [x] Git init/commit/push executados
 - [x] Pesquisa de segurança base criada
+- [x] Variáveis de ambiente documentadas
 - [x] `.gitignore` criado
 - [x] `.env.example` criado
 
@@ -50,6 +51,7 @@
 - /Users/brendonalcantara/Desktop/sosmultas-v2/claude.md
 - /Users/brendonalcantara/Desktop/sosmultas-v2/REFATORACAO-STATE.md
 - /Users/brendonalcantara/Desktop/sosmultas-v2/SEGURANCA-PARA-TESTES.md
+- /Users/brendonalcantara/Desktop/sosmultas-v2/ENV-PRODUCAO-SOS-MULTAS.md
 
 ## Próximo passo
 - Iniciar a Fase 0: backup e congelamento do baseline
