@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOS Multas — Design System (paleta oficial)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ===== MARCA (extraído do tailwind.config.js do site) ===== */
+  --navy:#001736;            /* primary — autoridade, títulos, seções escuras, footer */
+  --navy-600:#002b5c;        /* primary-container */
+  --navy-soft:#7594cb;       /* on-primary-container — navy suave */
+  --navy-fixed:#d6e3ff;      /* primary-fixed — tint azul claro */
+  /* ===== AÇÃO / CTA (LARANJA) ===== */
+  --accent:#fd8b00;          /* secondary-container — botão principal */
+  --accent-600:#904d00;      /* secondary — hover / texto de destaque */
+  --accent-text:#603100;     /* on-secondary-container — texto sobre laranja */
+  --accent-200:#ffb77d;      /* secondary-fixed-dim */
+  --accent-100:#ffdcc3;      /* secondary-fixed — fundo de badge */
+  --orange-700:#c2410c;      /* ícones de destaque (usado no site) */
+  /* ===== TEMA PETROL DARK (extraído do criativo social) ===== */
+  --petrol:#17292B;          /* fundo escuro teal-carvão */
+  --petrol-900:#101E20;      /* petrol mais profundo */
+  --petrol-elev:#1F3A3D;     /* superfície elevada / card no dark */
+  --petrol-line:#2E4A4D;     /* borda sobre petrol */
+  --orange-vivid:#F5811E;    /* laranja vibrante do criativo */
+  --orange-vivid-600:#DE6E12;/* hover do laranja vibrante */
+  --on-petrol:#F4F7F6;       /* texto forte sobre petrol */
+  --on-petrol-soft:#AEC0C0;  /* texto secundário sobre petrol */
+  /* ===== ALERTA ===== */
+  --error:#ba1a1a;
+  --error-100:#ffdad6;
+  /* ===== NEUTROS / SUPERFÍCIES ===== */
+  --white:#ffffff;
+  --bg:#faf9fe;              /* background / surface */
+  --bg-alt:#F8F9FA;          /* background-alt */
+  --band:#f3f4f6;            /* faixa do hero */
+  --surface-2:#eeedf2;       /* surface-container */
+  --line:#e3e2e7;            /* surface-variant / borda */
+  --outline-v:#c4c6d0;       /* outline-variant */
+  --outline:#747780;
+  /* ===== TEXTO ===== */
+  --ink:#0D0D0D;             /* text-main — PRETO */
+  --ink-2:#43474f;           /* on-surface-variant */
+  --muted:#6C757D;           /* text-muted */
+  /* ===== RADIUS (site: default .25 / lg .5 / xl .75 / 2xl 1rem / full) ===== */
+  --r-sm:4px; --r-md:8px; --r-lg:12px; --r-xl:16px; --r-pill:9999px;
+  /* ===== SOMBRAS ===== */
+  --sh-sm:0 1px 2px rgba(0,23,54,.06), 0 1px 3px rgba(0,23,54,.08);
+  --sh-md:0 6px 18px rgba(0,23,54,.08), 0 2px 6px rgba(0,23,54,.05);
+  --sh-lg:0 18px 44px rgba(0,23,54,.12);
+  --sh-cta:0 10px 24px rgba(253,139,0,.30);
+  /* ===== ESPAÇAMENTO (base do site) ===== */
+  --gutter:24px; --stack-sm:8px; --stack-md:16px; --stack-lg:32px; --section:80px;
+  --container:1200px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--white);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5,.head{font-family:'Bebas Neue',sans-serif;letter-spacing:.02em;font-weight:400;line-height:1.04;color:var(--ink)}
+.container{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-600)}
+a{color:inherit}
+
+/* NAV */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar .container{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{font-family:'Bebas Neue';font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:12px;color:var(--ink)}
+.brand .dot{width:32px;height:32px;border-radius:9px;background:var(--navy);display:grid;place-items:center;color:#fff;font-size:.9rem}
+.brand-logo{height:40px;width:auto;display:block}
+.brand-sep{font-weight:600;font-size:.9rem;color:var(--muted);padding-left:12px;border-left:1px solid var(--line)}
+.navlinks{display:flex;gap:22px;font-size:.9rem;color:var(--ink-2)}
+.navlinks a{text-decoration:none;font-weight:600}
+.navlinks a:hover{color:var(--accent-600)}
+@media(max-width:820px){.navlinks{display:none}}
+
+/* HERO DO DOC — petrol dark (espelha o criativo social) */
+.hero{background:var(--petrol);color:#fff;padding:96px 0 80px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;right:0;top:0;bottom:0;width:38%;background:
+  radial-gradient(120px 220px at 90% 22%,var(--orange-vivid),transparent 60%),
+  radial-gradient(160px 260px at 60% 82%,var(--orange-vivid),transparent 62%);opacity:.9}
+.hero::after{content:"";position:absolute;width:460px;height:460px;right:-140px;top:-120px;border-radius:50%;background:radial-gradient(circle,rgba(245,129,30,.18),transparent 62%)}
+.hero h1{color:#fff;font-size:clamp(2.3rem,6vw,3.9rem);position:relative;z-index:1}
+.hero h1 .o{color:var(--orange-vivid)}
+.hero .eyebrow{color:var(--orange-vivid)}
+.hero p.lead{max-width:640px;margin-top:20px;font-size:1.15rem;color:rgba(255,255,255,.82);position:relative;z-index:1}
+.toc{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;position:relative;z-index:1}
+.toc a{font-size:.8rem;padding:9px 15px;border:1px solid rgba(255,255,255,.22);border-radius:var(--r-pill);text-decoration:none;color:rgba(255,255,255,.85)}
+.toc a:hover{border-color:var(--accent);color:var(--accent-200)}
+
+/* SECTIONS */
+section.block{padding:var(--section) 0}
+section.alt{background:var(--bg-alt)}
+section.band{background:var(--band)}
+.sec-head{max-width:720px;margin-bottom:44px}
+.sec-head h2{font-size:clamp(1.7rem,3.6vw,2.5rem);margin:12px 0 10px}
+.sub{color:var(--ink-2);font-size:1.05rem}
+
+/* GRID */
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* SWATCHES */
+.swatch{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:var(--sh-sm)}
+.swatch .fill{height:88px}
+.swatch .info{padding:12px 14px;font-size:.8rem}
+.swatch .info b{display:block;font-family:'Bebas Neue';font-weight:700;color:var(--ink);font-size:.9rem}
+.swatch .info span{color:var(--muted);font-family:monospace}
+
+/* TOKEN TABLE */
+.tk{width:100%;border-collapse:collapse;font-size:.9rem;background:#fff;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-sm)}
+.tk td,.tk th{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line)}
+.tk th{font-family:'Bebas Neue';font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-600);background:var(--bg-alt)}
+.tk code{font-family:monospace;background:var(--surface-2);padding:2px 7px;border-radius:6px;color:var(--ink)}
+.tk .demo-r{display:inline-block;vertical-align:middle;background:var(--navy);width:120px;height:32px}
+
+/* TYPE SPECIMEN */
+.canvas{border-radius:var(--r-xl);padding:32px;border:1px solid var(--line);background:#fff}
+.type-row{padding:16px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap}
+.type-row:last-child{border-bottom:none}
+.type-row .label{font-family:monospace;font-size:.76rem;color:var(--muted);white-space:nowrap}
+
+/* BUTTONS (espelham o site: rounded-lg, laranja) */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:'DM Sans';font-weight:600;font-size:1rem;padding:15px 26px;border-radius:var(--r-md);border:none;cursor:pointer;text-decoration:none;transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .18s;letter-spacing:.02em}
+.btn-cta{background:var(--accent);color:var(--accent-text);box-shadow:var(--sh-cta)}
+.btn-cta:hover{background:var(--accent-600);color:#fff;transform:translateY(-2px)}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{background:var(--navy-600);transform:translateY(-2px)}
+.btn-ghost{background:transparent;border:1.5px solid var(--outline-v);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink);background:var(--bg-alt)}
+.btn-cta-vivid{background:var(--orange-vivid);color:#3a2100}
+.btn-cta-vivid:hover{background:var(--orange-vivid-600);color:#fff;transform:translateY(-2px)}
+.btn .ico{font-family:monospace}
+
+/* PETROL — seção/preview reutilizável */
+.petrol-demo{position:relative;overflow:hidden;border-radius:var(--r-xl);background:var(--petrol);padding:clamp(26px,4vw,40px);border:1px solid var(--petrol-line)}
+.petrol-demo .pd-waves{position:absolute;inset:0 0 0 auto;width:34%;background:
+  radial-gradient(140px 200px at 95% 20%,var(--orange-vivid),transparent 62%),
+  radial-gradient(150px 220px at 60% 88%,var(--orange-vivid),transparent 64%);opacity:.9}
+.petrol-demo .pd-txt{position:relative;z-index:1;max-width:62%}
+.petrol-demo h4{color:#fff;font-size:clamp(1.4rem,3vw,2rem);margin:10px 0}
+.petrol-demo p{color:var(--on-petrol-soft);margin-bottom:16px;font-size:.95rem}
+@media(max-width:560px){.petrol-demo .pd-txt{max-width:100%}.petrol-demo .pd-waves{opacity:.4}}
+
+/* CARDS */
+.card{border-radius:var(--r-xl);padding:26px;background:#fff;border:1px solid var(--line);box-shadow:var(--sh-sm);transition:transform .22s var(--ease),box-shadow .22s var(--ease),border-color .22s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);border-color:var(--accent-200)}
+.card .ic{width:50px;height:50px;border-radius:var(--r-lg);display:grid;place-items:center;font-size:1.35rem;margin-bottom:16px}
+.ic.navy{background:var(--navy-fixed);color:var(--ink)}
+.ic.orange{background:var(--accent-100);color:var(--accent-600)}
+.card h4{font-size:1.4rem;letter-spacing:.03em;margin-bottom:8px}
+.card p{font-size:.94rem;color:var(--ink-2)}
+.card .link{display:inline-block;margin-top:14px;font-family:'Bebas Neue';font-weight:700;font-size:.85rem;color:var(--accent-600);text-decoration:none}
+.card.navy-card{background:var(--navy);border:none;color:#fff}
+.card.navy-card h4{color:#fff}
+.card.navy-card p{color:rgba(255,255,255,.8)}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-radius:var(--r-xl);overflow:hidden;background:var(--navy);border:1px solid var(--navy-600)}
+.stats .st{padding:26px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.12)}
+.stats .st:last-child{border-right:none}
+.stats .st b{font-family:'Bebas Neue';font-size:2.6rem;letter-spacing:.02em;color:var(--accent);display:block;line-height:1}
+.stats .st span{font-size:.78rem;color:rgba(255,255,255,.78);text-transform:uppercase;letter-spacing:.05em}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}.stats .st:nth-child(2){border-right:none}}
+
+/* HERO COMPONENT DEMO (espelha o site: card branco em faixa cinza) */
+.hero-demo{background:var(--band);border-radius:var(--r-xl);padding:20px}
+.hero-demo .inner{background:#fff;border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;display:grid;grid-template-columns:1.05fr .95fr;gap:0;min-height:340px}
+.hero-demo .txt{padding:clamp(24px,4vw,44px);display:flex;flex-direction:column;justify-content:center}
+.hero-demo h3{font-size:clamp(1.6rem,3.5vw,2.3rem);line-height:1.08;margin-bottom:14px}
+.hero-demo .img{position:relative;overflow:hidden;display:block;min-height:340px;background:linear-gradient(135deg,#33454f,#1b2932)}
+.hero-demo .img img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.hero-demo .img::before{content:"";position:absolute;inset:0 0 0 0;background:linear-gradient(90deg,rgba(255,255,255,.42),rgba(255,255,255,0) 22%);pointer-events:none}
+.hero-demo .img::after{content:"";position:absolute;inset:auto 0 0 0;height:22%;background:linear-gradient(to top,rgba(0,0,0,.24),transparent);pointer-events:none}
+.hero-demo .img .cap{position:absolute;left:18px;right:18px;bottom:16px;z-index:1;color:rgba(255,255,255,.86);font-size:.82rem;text-align:left;line-height:1.4;text-shadow:0 1px 2px rgba(0,0,0,.16)}
+.hero-demo .img .cap small{color:rgba(255,255,255,.66);font-size:.72rem}
+.hero-demo .pills{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 22px}
+.hero-demo .pill{border:1px solid var(--line);border-radius:var(--r-lg);padding:12px 14px;font-size:.85rem;font-weight:600;display:flex;gap:8px;align-items:center;color:var(--ink)}
+.hero-demo .pill .d{color:var(--orange-700);font-family:monospace}
+@media(max-width:720px){.hero-demo .inner{grid-template-columns:1fr}.hero-demo .img{min-height:220px}}
+
+/* TESTIMONIAL */
+.quote{background:#fff;border:1px solid var(--line);border-radius:var(--r-xl);padding:28px;box-shadow:var(--sh-sm)}
+.quote .stars{color:var(--accent);letter-spacing:3px;margin-bottom:12px}
+.quote p{font-size:1.1rem;color:var(--ink);line-height:1.5;font-weight:500}
+.quote .who{margin-top:18px;display:flex;align-items:center;gap:12px}
+.quote .av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--accent))}
+.quote .who b{font-family:'Bebas Neue';font-size:1.1rem;letter-spacing:.03em;display:block;color:var(--ink)}
+.quote .who span{font-size:.8rem;color:var(--muted)}
+
+/* FAQ */
+.faq-item{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 22px;margin-bottom:12px}
+.faq-item summary{font-family:'DM Sans';font-weight:600;font-size:1rem;color:var(--ink);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary .plus{color:var(--accent-600);font-size:1.4rem;transition:transform .2s}
+.faq-item[open] summary .plus{transform:rotate(45deg)}
+.faq-item p{margin-top:12px;color:var(--ink-2);font-size:.94rem}
+
+/* PROOF STRIP */
+.proof{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center;padding:22px;border-radius:var(--r-xl);background:var(--bg-alt);border:1px solid var(--line)}
+.proof .logo{font-family:'Bebas Neue';font-weight:700;color:var(--muted);font-size:.95rem;padding:6px 14px}
+
+/* CTA BAND (petrol dark — espelha o criativo de conversão) */
+.ctaband{position:relative;overflow:hidden;border-radius:var(--r-xl);padding:clamp(28px,5vw,52px);text-align:center;background:var(--petrol);color:#fff;border:1px solid var(--petrol-line)}
+.ctaband::before{content:"";position:absolute;inset:0 0 0 auto;width:30%;background:
+  radial-gradient(130px 190px at 95% 18%,var(--orange-vivid),transparent 62%),
+  radial-gradient(150px 210px at 55% 90%,var(--orange-vivid),transparent 64%);opacity:.85}
+.ctaband h3{position:relative;z-index:1;color:#fff;font-size:clamp(1.5rem,3.5vw,2.1rem);margin-bottom:14px}
+.ctaband h3 .o{color:var(--orange-vivid)}
+.ctaband p{position:relative;z-index:1;color:var(--on-petrol-soft)}
+.ctaband a{position:relative;z-index:1}
+
+/* CTA WHATSAPP — estilo oficial do site (laranja + spotlight + card branco) */
+.cta-whats{position:relative;overflow:hidden;border-radius:var(--r-xl);color:#fff;
+  background:
+    radial-gradient(520px 380px at 18% 22%, #FF9A5E, transparent 58%),
+    radial-gradient(560px 520px at 84% 88%, #F97A38, transparent 60%),
+    linear-gradient(135deg,#F5811E,#EA661A);
+  display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(20px,4vw,44px);
+  padding:clamp(26px,4vw,48px);align-items:center}
+.cta-whats .cw-left h4{font-family:'Bebas Neue';font-weight:800;color:#fff;text-transform:uppercase;
+  font-size:clamp(1.7rem,4vw,2.6rem);line-height:1.03;letter-spacing:-.01em;margin-bottom:14px}
+.cta-whats .cw-left p{color:rgba(255,255,255,.92);font-size:1rem;max-width:44ch}
+.cta-whats .cw-card{background:#fff;border-radius:var(--r-xl);padding:clamp(22px,3vw,34px);text-align:center;box-shadow:var(--sh-lg)}
+.cw-card .clock{width:56px;height:56px;border-radius:50%;border:2px solid var(--orange-vivid);display:grid;place-items:center;margin:0 auto 16px}
+.cw-card .clock svg{width:26px;height:26px;stroke:var(--orange-vivid);fill:none;stroke-width:2;stroke-linecap:round}
+.cw-card h5{font-family:'Bebas Neue';color:var(--ink);text-transform:uppercase;letter-spacing:.05em;font-size:1.35rem;margin-bottom:8px}
+.cw-card .desc{color:var(--muted);font-size:.95rem;margin-bottom:20px}
+.btn-whats{display:inline-flex;align-items:center;justify-content:center;gap:12px;width:100%;
+  background:#0d0f12;color:#fff;font-family:'Bebas Neue';font-weight:700;text-transform:uppercase;letter-spacing:.03em;
+  padding:16px 20px;border-radius:var(--r-md);text-decoration:none;font-size:.95rem;transition:transform .18s var(--ease),background .18s}
+.btn-whats:hover{background:#000;transform:translateY(-2px)}
+.btn-whats .wa{width:26px;height:26px;border-radius:50%;background:#25D366;display:grid;place-items:center;flex:0 0 26px}
+.btn-whats .wa svg{width:16px;height:16px;fill:#fff}
+.cw-card .safe{margin-top:14px;color:var(--muted);font-size:.85rem;display:flex;align-items:center;justify-content:center;gap:6px}
+@media(max-width:720px){.cta-whats{grid-template-columns:1fr}}
+
+/* FOOTER DEMO (site: footer branco) */
+.footer-demo{background:#fff;border:1px solid var(--line);border-top:3px solid var(--navy);border-radius:var(--r-xl);padding:36px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:26px}
+.footer-demo h5{font-family:'Bebas Neue';font-size:1rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-600);margin-bottom:14px}
+.footer-demo a{display:block;color:var(--ink-2);text-decoration:none;font-size:.9rem;margin-bottom:9px;font-weight:500}
+.footer-demo a:hover{color:var(--ink)}
+@media(max-width:720px){.footer-demo{grid-template-columns:1fr 1fr}}
+
+/* RULES */
+.rule{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.rule .k{flex:0 0 32px;height:32px;border-radius:9px;background:var(--navy);color:#fff;font-family:'Bebas Neue';font-weight:800;display:grid;place-items:center;font-size:.85rem}
+.rule b{font-family:'Bebas Neue';color:var(--ink)}
+.rule p{color:var(--ink-2);font-size:.95rem;margin-top:3px}
+
+/* DO / DONT */
+.dd{border-radius:var(--r-lg);padding:20px;font-size:.94rem}
+.dd.do{background:#eaf6ef;color:#12603f;border:1px solid #bfe6d5}
+.dd.dont{background:var(--error-100);color:#8f2a32;border:1px solid #eec3c6}
+.dd b{font-family:'Bebas Neue';display:block;margin-bottom:8px}
+.dd ul{margin-left:18px}
+
+/* MOTION DEMO */
+.mo{width:100%;height:60px;border-radius:var(--r-lg);background:#fff;border:1px solid var(--line);display:flex;align-items:center;padding:0 18px;transition:all .25s var(--ease)}
+.mo:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);border-color:var(--accent-200)}
+.mo span{font-family:'Bebas Neue';font-weight:700;color:var(--ink)}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+/* Nota de marca / logo */
+.logo-note{display:flex;gap:22px;align-items:center;background:#fff;border:1px solid var(--line);border-left:4px solid var(--navy);border-radius:var(--r-xl);padding:24px 26px;margin-bottom:28px;box-shadow:var(--sh-sm)}
+.logo-note .ln-logo{flex:0 0 auto}
+.logo-note .ln-logo img{height:96px;width:auto;display:block}
+.logo-note b{font-family:'Bebas Neue';color:var(--ink)}
+.logo-note p{color:var(--ink-2);font-size:.95rem;margin-top:5px}
+@media(max-width:560px){.logo-note{flex-direction:column;align-items:flex-start;gap:12px}}
+.footer-note{padding:40px 0 56px;text-align:center;color:var(--muted);font-size:.85rem;background:var(--bg-alt)}
+mark{background:var(--accent-100);color:var(--accent-text);padding:1px 5px;border-radius:4px}
+.summary-box p{margin-top:13px}
+.summary-box b{font-family:'Bebas Neue';color:var(--ink)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="topbar">
+  <div class="container">
+    <div class="brand"><img class="brand-logo" src="file:///Users/brendonalcantara/Desktop/Megabrain/mega-brain/sites/sos-multas-lp/assets/logo-sos-multas.png" alt="SOS Multas — Assessoria de Trânsito"> <span class="brand-sep">Design System</span></div>
+    <nav class="navlinks">
+      <a href="#direcao">Direção</a>
+      <a href="#tokens">Tokens</a>
+      <a href="#tipografia">Tipografia</a>
+      <a href="#componentes">Componentes</a>
+      <a href="#composicao">Composição</a>
+      <a href="#motion">Motion</a>
+      <a href="#aplicacao">Aplicação</a>
+      <a href="#resumo">Resumo</a>
+    </nav>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <span class="eyebrow">DNA Visual · Paleta oficial da marca</span>
+    <h1>Design System <span class="o">SOS Multas</span><br>Confiança clara que converte.</h1>
+    <p class="lead">Sistema visual ancorado na <mark>paleta real da marca</mark>, em dois temas: <b>Claro</b> (navy #001736 + laranja #fd8b00) para a base do site e <b>Petrol Dark</b> (petrol #17292B + laranja vibrante #F5811E) para hero, conversão e social — como neste cabeçalho. Tokens, tipografia, componentes e regras prontos para reutilizar. Mobile-first.</p>
+    <div class="toc">
+      <a href="#direcao">1 · Direção visual</a>
+      <a href="#tokens">2 · Tokens</a>
+      <a href="#tipografia">3 · Tipografia</a>
+      <a href="#componentes">4 · Componentes</a>
+      <a href="#composicao">5 · Composição</a>
+      <a href="#motion">6 · Motion & interação</a>
+      <a href="#aplicacao">7 · Aplicação</a>
+      <a href="#resumo">✅ Resumo / bullets</a>
+    </div>
+  </div>
+</header>
+
+<!-- 1. DIREÇÃO -->
+<section class="block" id="direcao">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="eyebrow">01 · Direção visual principal</span>
+      <h2>Base clara e institucional, com navy de autoridade e laranja de ação</h2>
+      <p class="sub">A identidade da SOS Multas é <b>tema claro</b> (branco/off-white), com <b>navy #001736</b> nos títulos e elementos de autoridade e <b>laranja #fd8b00</b> reservado ao CTA (o botão do WhatsApp). Das 23 referências, o que adotamos é a <b>disciplina de conversão</b> (hero forte, prova social, serviços em cards, FAQ, CTA repetido) e o <b>acabamento sóbrio</b> — sem clonar nenhuma, aplicando tudo sobre a paleta real.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card"><div class="ic navy">⚖️</div><h4>Tom da interface</h4><p>Sério, limpo e acessível. Fundo claro transmite transparência; navy dá seriedade; laranja chama para a ação sem parecer alarme.</p></div>
+      <div class="card"><div class="ic navy">🔁</div><h4>O que mais se repete</h4><p>Hero com pessoa real + headline forte, cards de serviço, prova social (nota Google, +10.000 clientes, 20 anos), passo a passo e CTA de WhatsApp.</p></div>
+      <div class="card"><div class="ic navy">🎯</div><h4>Linguagem da marca</h4><p>“Defesa do direito de dirigir.” Autoridade de quem entende trânsito + clareza de quem resolve rápido. Confiável, direto, humano.</p></div>
+    </div>
+    <div class="grid g3" style="margin-top:20px">
+      <div class="card"><div class="ic orange">📐</div><h4>Layout & composição</h4><p>Grid de 12 colunas, cards em “bento”, seções com respiro (80px). Faixa cinza clara (#f3f4f6) para destacar o hero.</p></div>
+      <div class="card"><div class="ic orange">🖼️</div><h4>Tratamento de imagem</h4><p>Fotos reais com carga emocional (motorista preocupado com a notificação), recortadas em cantos arredondados (2xl), com fade branco na borda esquerda e foco no rosto + documento. A dor aparece na imagem; a solução, no texto.</p></div>
+      <div class="card"><div class="ic orange">📊</div><h4>Prova como protagonista</h4><p>Números grandes em navy, selo do Google 4,9, contadores (+10.000 / 20 anos). Confiança por evidência, não por adjetivo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. TOKENS -->
+<section class="block alt" id="tokens">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="eyebrow">02 · Tokens visuais</span>
+      <h2>Cores — paleta oficial (extraída do site)</h2>
+      <p class="sub"><b>Navy</b> = marca/autoridade · <b>Laranja</b> = ação/CTA · <b>Neutros claros</b> = base · <b>Vermelho</b> = erro/alerta pontual. Todos os valores são os do <code>tailwind.config.js</code> da SOS Multas.</p>
+    </div>
+
+    <h3 style="font-family:'Bebas Neue';margin-bottom:16px;color:var(--ink)">Marca & ação</h3>
+    <div class="grid g4">
+      <div class="swatch"><div class="fill" style="background:#001736"></div><div class="info"><b>Navy (primary)</b><span>#001736</span></div></div>
+      <div class="swatch"><div class="fill" style="background:#002b5c"></div><div class="info"><b>Navy container</b><span>#002b5c</span></div></div>
+      <div class="swatch"><div class="fill" style="background:#fd8b00"></div><div class="info"><b>Laranja CTA</b><span>#fd8b00</span></div></div>
+      <div class="swatch"><div class="fill" style="background:#904d00"></div><div class="info"><b>Laranja hover/txt</b><span>#904d00</span></div></div>
+    </div>
+    <h3 style="font-family:'Bebas Neue';margin:28px 0 16px;color:var(--ink)">Neutros, texto & alerta</h3>
+    <div class="grid g4">
+      <div class="swatch"><div class="fill" style="background:#faf9fe;border-bottom:1px solid #eee"></div><div class="info"><b>Background</b><span>#faf9fe</span></div></div>
+      <div class="swatch"><div class="fill" style="background:#f3f4f6;border-bottom:1px solid #eee"></div><div class="info"><b>Faixa hero</b><span>#f3f4f6</span></div></div>
+      <div class="swatch"><div class="fill" style="background:#212529"></div><div class="info"><b>Texto principal</b><span>#212529</span></div></div>
+      <div class="swatch"><div class="fill" style="background:#6C757D"></div><div class="info"><b>Texto muted</b><span>#6C757D</span></div></div>
+    </div>
+    <div class="grid g4" style="margin-top:20px">
+      <div class="swatch"><div class="fill" style="background:#ffdcc3"></div><div class="info"><b>Laranja tint</b><span>#ffdcc3 · badge</span></div></div>
+      <div class="swatch"><div class="fill" style="background:#d6e3ff"></div><div class="info"><b>Navy tint</b><span>#d6e3ff · badge</span></div></div>
+      <div class="swatch"><div class="fill" style="background:#e3e2e7"></div><div class="info"><b>Borda</b><span>#e3e2e7</span></div></div>
+      <div class="swatch"><div class="fill" style="background:#ba1a1a"></div><div class="info"><b>Erro</b><span>#ba1a1a</span></div></div>
+    </div>
+
+    <h3 style="font-family:'Bebas Neue';margin:34px 0 8px;color:var(--ink)">Tema Petrol Dark <span style="font-family:'DM Sans';font-weight:600;font-size:.85rem;color:var(--muted)">— extraído do criativo social</span></h3>
+    <p class="sub" style="margin-bottom:16px;font-size:.95rem">Variante escura e bold para <b>hero, seções de conversão e peças de social/anúncios</b>. Fundo petrol (teal-carvão) + laranja vibrante + branco. Mais quente e impactante que o navy.</p>
+    <div class="grid g4">
+      <div class="swatch"><div class="fill" style="background:#17292B"></div><div class="info"><b>Petrol</b><span>#17292B · fundo</span></div></div>
+      <div class="swatch"><div class="fill" style="background:#1F3A3D"></div><div class="info"><b>Petrol elevado</b><span>#1F3A3D · card</span></div></div>
+      <div class="swatch"><div class="fill" style="background:#F5811E"></div><div class="info"><b>Laranja vibrante</b><span>#F5811E · destaque</span></div></div>
+      <div class="swatch"><div class="fill" style="background:#F4F7F6;border-bottom:1px solid #eee"></div><div class="info"><b>Texto s/ petrol</b><span>#F4F7F6</span></div></div>
+    </div>
+    <div class="petrol-demo" style="margin-top:18px">
+      <div class="pd-waves"></div>
+      <div class="pd-txt">
+        <span class="eyebrow" style="color:var(--orange-vivid)">Peça de social · exemplo</span>
+        <h4>Está com sua <span style="color:var(--orange-vivid)">CNH cassada?</span></h4>
+        <p>Fundo petrol + laranja vibrante + branco. Mesma vibe do criativo, agora como token reutilizável.</p>
+        <a class="btn btn-cta-vivid" style="margin-top:6px">Recuperar minha CNH</a>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Bebas Neue';margin:40px 0 12px;color:var(--ink)">Radius · Sombra · Espaçamento · Grid</h3>
+    <table class="tk">
+      <tr><th>Token</th><th>Valor (site)</th><th>Uso</th><th>Amostra</th></tr>
+      <tr><td>Radius sm / lg / xl / 2xl / full</td><td><code>4 · 8 · 12 · 16 · 9999px</code></td><td>Botões = lg (8px) · cards = xl/2xl · pills/imagens = full/2xl</td><td><span class="demo-r" style="border-radius:12px"></span></td></tr>
+      <tr><td>Sombra card</td><td><code>0 6px 18px rgba(0,23,54,.08)</code></td><td>Cards e elementos elevados sobre fundo claro.</td><td><span class="demo-r" style="border-radius:12px;box-shadow:var(--sh-md);background:#fff;border:1px solid var(--line)"></span></td></tr>
+      <tr><td>Espaçamento</td><td><code>8 · 16 · 32 · gutter 24 · seção 80</code></td><td>Padding de seção 80px. Gap padrão de grid 24px.</td><td><span style="font-family:monospace;font-size:.8rem">stack: 8/16/32</span></td></tr>
+      <tr><td>Container</td><td><code>max-width 1200px</code></td><td>Gutter 24px · grid 12 colunas · bento nas seções.</td><td><span style="font-family:monospace;font-size:.8rem">texto ≤ 62ch</span></td></tr>
+      <tr><td>Borda</td><td><code>1px #e3e2e7</code> (surface-variant)</td><td>Divisão sutil; contraste vem do fundo, não da linha.</td><td><span class="demo-r" style="border:1px solid var(--line);background:#fff;border-radius:8px"></span></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 3. TIPOGRAFIA -->
+<section class="block" id="tipografia">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="eyebrow">03 · Tipografia</span>
+      <h2>Bebas Neue + DM Sans — texto principal em preto</h2>
+      <p class="sub"><b>Títulos:</b> Bebas Neue — display condensada em caixa alta, casa com o peso do logo e do headline dos criativos. <b>Corpo e labels:</b> DM Sans (400/500/600/700) — limpa, geométrica, ótima no mobile. <b>Cor do texto principal:</b> preto (#0D0D0D).</p>
+    </div>
+    <div class="canvas">
+      <div class="type-row"><div style="font-family:'Bebas Neue';font-size:clamp(2.4rem,6vw,3.8rem);color:var(--ink);letter-spacing:.02em;line-height:1">Proteja seu direito de dirigir</div><div class="label">H1 / headline-xl · Bebas Neue · caixa alta</div></div>
+      <div class="type-row"><div style="font-family:'Bebas Neue';font-size:2.4rem;color:var(--ink);letter-spacing:.02em">Serviços que resolvem</div><div class="label">H2 / headline-lg · Bebas Neue</div></div>
+      <div class="type-row"><div style="font-family:'Bebas Neue';font-size:1.8rem;color:var(--ink);letter-spacing:.03em">Processo de suspensão</div><div class="label">H3 / headline-md · Bebas Neue</div></div>
+      <div class="type-row"><div style="font-family:'DM Sans';font-size:1.125rem;color:var(--ink)">Texto de apoio maior, usado em subtítulos do hero e aberturas de seção.</div><div class="label">body-lg · DM Sans · 18/28px</div></div>
+      <div class="type-row"><div style="font-family:'DM Sans';font-size:1rem;color:var(--ink)">Corpo padrão em preto. Frases diretas, sem jargão jurídico pesado. Linhas de até ~62 caracteres.</div><div class="label">body-md · DM Sans · 16/24px</div></div>
+      <div class="type-row"><div style="font-family:'DM Sans';font-weight:600;font-size:.875rem;letter-spacing:.02em;color:var(--ink)">FALAR COM ESPECIALISTA</div><div class="label">label · DM Sans 600 · 14px · +.02em</div></div>
+      <div class="type-row"><div class="eyebrow">ASSESSORIA ESPECIALIZADA EM TRÂNSITO</div><div class="label">caption/eyebrow · DM Sans · 12px · uppercase</div></div>
+    </div>
+    <div class="grid g3" style="margin-top:22px">
+      <div class="card"><h4>Estilo de headline</h4><p style="font-family:'DM Sans'">Bebas Neue em caixa alta, preto, com 1 palavra podendo ir a laranja. Ex: “SEU DIREITO DE <span style="color:var(--accent-600);font-weight:700">DIRIGIR</span>.” Impacto vem do tamanho + condensação.</p></div>
+      <div class="card"><h4>Estilo de corpo</h4><p style="font-family:'DM Sans'">DM Sans em preto (#0D0D0D). Parágrafos curtos, tom claro e tranquilizador. Secundário em cinza #43474f quando precisar hierarquizar.</p></div>
+      <div class="card"><h4>Estilo de CTA</h4><p style="font-family:'DM Sans'">Label DM Sans 600, +0.02em. Verbo + benefício: “Quero entender meu caso”. Sempre no botão laranja ou preto (WhatsApp).</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. COMPONENTES -->
+<section class="block band" id="componentes">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="eyebrow">04 · Componentes base</span>
+      <h2>Biblioteca visual na paleta oficial</h2>
+      <p class="sub">Todos os componentes já usam os tokens reais. Copie o padrão, troque o conteúdo.</p>
+    </div>
+
+    <!-- Botões -->
+    <h3 style="font-family:'Bebas Neue';margin-bottom:16px;color:var(--ink)">Botões</h3>
+    <div class="canvas" style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-bottom:34px">
+      <a class="btn btn-cta"><span class="ico">💬</span> Quero entender meu caso</a>
+      <a class="btn btn-navy">Ver serviços</a>
+      <a class="btn btn-ghost">Como funciona</a>
+    </div>
+
+    <!-- Cards de serviço -->
+    <h3 style="font-family:'Bebas Neue';margin-bottom:16px;color:var(--ink)">Cards de serviço</h3>
+    <div class="grid g4" style="margin-bottom:34px">
+      <div class="card"><div class="ic navy">🚗</div><h4>Suspensão & cassação</h4><p>Defesas e recursos contra processos de suspensão do direito de dirigir.</p><a class="link">Saiba mais →</a></div>
+      <div class="card"><div class="ic orange">🍺</div><h4>Lei Seca (Art. 165)</h4><p>Defesa em casos de alcoolemia ou recusa do teste do bafômetro.</p><a class="link">Saiba mais →</a></div>
+      <div class="card"><div class="ic navy">📋</div><h4>Multas de trânsito</h4><p>Defesas e recursos em todas as instâncias do CTB.</p><a class="link">Saiba mais →</a></div>
+      <div class="card"><div class="ic orange">🪪</div><h4>CNH provisória</h4><p>Controle periódico para assegurar a CNH definitiva.</p><a class="link">Saiba mais →</a></div>
+    </div>
+
+    <!-- Stats + proof -->
+    <h3 style="font-family:'Bebas Neue';margin-bottom:16px;color:var(--ink)">Prova social + estatísticas</h3>
+    <div style="margin-bottom:22px">
+      <div class="stats">
+        <div class="st"><b>4,9</b><span>Nota no Google</span></div>
+        <div class="st"><b>+10 mil</b><span>Clientes atendidos</span></div>
+        <div class="st"><b>20 anos</b><span>De experiência</span></div>
+        <div class="st"><b>Brasil</b><span>Atendimento nacional</span></div>
+      </div>
+    </div>
+    <div class="proof" style="margin-bottom:34px">
+      <span class="logo">★ Google 4,9</span><span class="logo">+10.000 clientes</span><span class="logo">20 anos de atuação</span><span class="logo">Atendimento no Sul + Brasil</span>
+    </div>
+
+    <!-- Hero -->
+    <h3 style="font-family:'Bebas Neue';margin-bottom:16px;color:var(--ink)">Seção hero</h3>
+    <div class="hero-demo" style="margin-bottom:34px">
+      <div class="inner">
+        <div class="txt">
+          <span class="eyebrow">Assessoria de trânsito</span>
+          <h3 style="margin-top:12px">Proteja o seu direito de <span style="color:var(--accent-600)">dirigir</span>.</h3>
+          <p style="color:var(--ink-2)">Defesas especializadas para manter sua CNH regular. Atendimento online em todo o Brasil e presencial.</p>
+          <div class="pills">
+            <div class="pill"><span class="d">◍</span> Atendimento nacional</div>
+            <div class="pill"><span class="d">✓</span> Soluções práticas</div>
+          </div>
+          <div><a class="btn btn-cta"><span class="ico">💬</span> Quero entender meu caso</a></div>
+        </div>
+        <div class="img">
+          <img src="./hero-reference.png" alt="Referência visual para a seção hero da SOS Multas" />
+          <span class="cap">Imagem de referência para o hero<br><small>usar como base visual do redesign</small></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Depoimento -->
+    <h3 style="font-family:'Bebas Neue';margin-bottom:16px;color:var(--ink)">Depoimentos</h3>
+    <div class="grid g2" style="margin-bottom:34px">
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>“Estava prestes a perder minha CNH e a renda da família. Resolveram tudo com clareza e rapidez.”</p>
+        <div class="who"><span class="av"></span><div><b>Marcos R.</b><span>Motorista · Porto Alegre</span></div></div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>“Atendimento rápido e transparente. Explicaram cada passo do recurso e reverteram minha suspensão.”</p>
+        <div class="who"><span class="av"></span><div><b>Juliana P.</b><span>Autônoma · Capão da Canoa</span></div></div>
+      </div>
+    </div>
+
+    <!-- CTA WhatsApp (estilo oficial do site) -->
+    <h3 style="font-family:'Bebas Neue';margin-bottom:16px;color:var(--ink)">Seção CTA WhatsApp <span style="font-family:'DM Sans';font-weight:600;font-size:.85rem;color:var(--muted)">— estilo oficial do site (mantido)</span></h3>
+    <div class="cta-whats" style="margin-bottom:34px">
+      <div class="cw-left">
+        <h4>Não perca os prazos da sua regularização!</h4>
+        <p>Cada minuto conta no trânsito. Fale agora com um especialista e receba orientação clara para o seu caso.</p>
+      </div>
+      <div class="cw-card">
+        <div class="clock"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+        <h5>Atendimento pelo WhatsApp</h5>
+        <p class="desc">Explique seu caso e receba uma orientação inicial.</p>
+        <a class="btn-whats"><span class="wa"><svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.09c-.24.68-1.4 1.3-1.94 1.38-.5.07-1.13.1-1.82-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.8-4.17-4.94-4.36-.15-.19-1.19-1.58-1.19-3.01s.75-2.14 1.02-2.43c.27-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2.01.89 2.16.07.15.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.3 2.35 1.45.29.15.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.39-.24.66-.14.27.1 1.7.8 1.99.95.29.15.48.22.55.34.07.12.07.68-.17 1.36z"/></svg></span> Falar com especialista</a>
+        <div class="safe">🔒 Conversa segura.</div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Bebas Neue';margin-bottom:16px;color:var(--ink)">FAQ</h3>
+    <div style="max-width:760px;margin-bottom:34px">
+      <details class="faq-item" open><summary>Toda infração cabe defesa? <span class="plus">+</span></summary><p>Sim. Toda infração de trânsito é passível de defesa ou recurso nas instâncias previstas pelo CTB.</p></details>
+      <details class="faq-item"><summary>O atendimento é presencial ou online? <span class="plus">+</span></summary><p>Ambos. Atendemos online em todo o Brasil e presencialmente no Sul (Porto Alegre e Capão da Canoa).</p></details>
+      <details class="faq-item"><summary>E se eu já estiver em processo de suspensão? <span class="plus">+</span></summary><p>Há caminhos de defesa e busca por nulidades no processo administrativo. Avaliamos seu caso caso a caso.</p></details>
+    </div>
+
+    <!-- Footer -->
+    <h3 style="font-family:'Bebas Neue';margin-bottom:16px;color:var(--ink)">Footer</h3>
+    <div class="footer-demo">
+      <div>
+        <div class="brand" style="margin-bottom:12px"><img class="brand-logo" style="height:56px" src="file:///Users/brendonalcantara/Desktop/Megabrain/mega-brain/sites/sos-multas-lp/assets/logo-sos-multas.png" alt="SOS Multas"></div>
+        <p style="color:var(--ink-2);font-size:.9rem">Assessoria especializada em trânsito. A defesa do direito de dirigir do cidadão.</p>
+      </div>
+      <div><h5>Serviços</h5><a>Suspensão & cassação</a><a>Lei Seca</a><a>Multas · CNH provisória</a></div>
+      <div><h5>Empresa</h5><a>Como funciona</a><a>Unidades</a><a>Privacidade</a></div>
+      <div><h5>Fale conosco</h5><a>WhatsApp</a><a>Porto Alegre</a><a>Capão da Canoa</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. COMPOSIÇÃO -->
+<section class="block" id="composicao">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="eyebrow">05 · Regras de composição</span>
+      <h2>Como montar as páginas sem poluir</h2>
+    </div>
+    <div class="grid g2">
+      <div>
+        <div class="rule"><div class="k">1</div><div><b>Ordem das seções (conversão)</b><p>Hero → sobre + credibilidade → serviços → prova social → CTA WhatsApp → como funciona → footer. Estrutura já usada no site, reforçada pelo blueprint das referências.</p></div></div>
+        <div class="rule"><div class="k">2</div><div><b>Ritmo de fundo</b><p>Alterne branco e off-white (#F8F9FA), com faixa cinza (#f3f4f6) para destacar o hero. Seções de conversão em navy para dar peso.</p></div></div>
+        <div class="rule"><div class="k">3</div><div><b>Onde usar imagem</b><p>Hero (motorista/pessoa real), bloco “sobre” e ícones de serviço. Sempre com cantos arredondados (2xl) e fade branco na borda.</p></div></div>
+        <div class="rule"><div class="k">4</div><div><b>Onde usar texto</b><p>Coluna de ~55% no hero; parágrafos ≤ 62ch; uma ideia por seção. Títulos em navy, corpo em cinza-escuro.</p></div></div>
+      </div>
+      <div>
+        <div class="rule"><div class="k">5</div><div><b>Onde usar destaque</b><p>Laranja SÓ no CTA e em 1 palavra-chave do título. Navy para autoridade. Se tudo é destaque, nada é.</p></div></div>
+        <div class="rule"><div class="k">6</div><div><b>Onde usar respiro</b><p>Padding de seção 80px, gap 24px, cards arejados. O ar transmite confiança e profissionalismo.</p></div></div>
+        <div class="rule"><div class="k">7</div><div><b>Um CTA por seção</b><p>Todas as seções apontam para a mesma ação (WhatsApp “falar com especialista”). Reduz dispersão e sobe conversão.</p></div></div>
+        <div class="rule"><div class="k">8</div><div><b>Sofisticação sem poluir</b><p>2 fontes (Bebas Neue + DM Sans), 2 cores de marca (navy + laranja), texto preto, sombras sutis, ícones em linha. Consistência &gt; variedade.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. MOTION -->
+<section class="block alt" id="motion">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="eyebrow">06 · Motion & interação</span>
+      <h2>Elegante, discreto e rápido</h2>
+      <p class="sub">Nível ideal: <b>sutil</b>. O site já usa <code>float</code>, <code>cta-motion</code> (active:scale-95) e stagger — mantemos essa linha, sempre respeitando <code>prefers-reduced-motion</code> e performance no mobile.</p>
+    </div>
+    <div class="grid g2" style="margin-bottom:28px">
+      <div class="dd do">
+        <b>✅ Pode animar</b>
+        <ul>
+          <li>Fade-up ao entrar na viewport (16–24px, 400–600ms).</li>
+          <li>Hover em cards: elevação 2–4px + borda laranja clara.</li>
+          <li>Botão: <code>active:scale-95</code> e escurecer no hover (padrão do site).</li>
+          <li>Float suave na imagem do hero (já existe: <code>motion-float</code>).</li>
+          <li>Stagger nos cards e contador nos números.</li>
+        </ul>
+      </div>
+      <div class="dd dont">
+        <b>🚫 Evitar</b>
+        <ul>
+          <li>Parallax pesado e muitos elementos flutuando.</li>
+          <li>Carrosséis com autoplay rápido.</li>
+          <li>Animações longas (&gt;700ms) que atrasam a leitura.</li>
+          <li>Efeitos chamativos (neon, glitch) — quebram a confiança.</li>
+          <li>Movimento em texto de corpo.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="sub" style="margin-bottom:12px">Passe o mouse (desktop) — elevação padrão de card:</p>
+    <div class="mo"><span>Hover suave · +elevação · borda laranja clara</span></div>
+  </div>
+</section>
+
+<!-- 7. APLICAÇÃO -->
+<section class="block" id="aplicacao">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="eyebrow">07 · Aplicação no site da SOS Multas</span>
+      <h2>Recomendação final</h2>
+      <p class="sub">Trabalhamos com <mark>dois temas coerentes</mark>: <b>Claro</b> (navy #001736 + laranja #fd8b00) para a base do site e conteúdo, e <b>Petrol Dark</b> (petrol #17292B + laranja vibrante #F5811E) para hero, seções de conversão e peças de social — a mesma vibe do criativo. Regra de ouro: <b>fundo claro leva navy nos títulos; fundo petrol leva laranja vibrante no destaque</b>. Um acento por bloco.</p>
+    </div>
+    <div class="logo-note">
+      <div class="ln-logo"><img src="file:///Users/brendonalcantara/Desktop/Megabrain/mega-brain/sites/sos-multas-lp/assets/logo-sos-multas.png" alt="Logo SOS Multas"></div>
+      <div>
+        <b>Uso da marca / logo</b>
+        <p>Logo monocromático (preto), com o pneu off-road como “O” central e wordmark pesado em caixa alta — o que <b>valida o estilo de headline uppercase</b> (Bebas Neue) usado nos CTAs. Regras: use <b>preto sobre fundos claros</b> e a <b>versão branca (invertida) sobre petrol/laranja</b>; mantenha área de respiro ao redor; nunca recolora o pneu, distorça ou incline. Tagline “Assessoria de Trânsito” em caixa alta discreta, com fio divisor.</p>
+      </div>
+    </div>
+    <div class="grid g3">
+      <div class="card"><div class="ic navy">✅</div><h4>Manter</h4><p>Paleta navy + laranja, tema claro, texto preto, fontes Bebas Neue/DM Sans, CTA laranja de WhatsApp, prova social (Google 4,9 / +10.000 / 20 anos), passo a passo.</p></div>
+      <div class="card"><div class="ic orange">🔧</div><h4>Elevar</h4><p>Hierarquia tipográfica mais contrastada, cards com mais respiro, seção de conversão em navy, headlines com 1 palavra em laranja, stats em barra navy.</p></div>
+      <div class="card"><div class="ic navy">🚫</div><h4>Evitar</h4><p>Laranja em excesso (só CTA + 1 destaque), muitos tons, cards sem hierarquia, texto denso, stock genérico e animação exagerada.</p></div>
+    </div>
+    <div style="margin-top:26px" class="ctaband">
+      <span class="eyebrow" style="color:var(--accent-200)">Próximo passo sugerido</span>
+      <h3 style="margin:12px 0">Com o DNA + paleta oficial travados, o próximo entregável é o <span class="o">wireframe da home</span> aplicando este sistema.</h3>
+      <p>Este documento é a fundação. A partir dele, cada tela nasce consistente e fiel à marca.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESUMO -->
+<section class="block alt" id="resumo">
+  <div class="container reveal">
+    <div class="sec-head">
+      <span class="eyebrow">✅ Versão resumida · base de implementação</span>
+      <h2>Cola rápida para o dev / IA</h2>
+    </div>
+    <div class="canvas summary-box" style="font-size:.95rem;color:var(--ink)">
+      <p><b>Direção:</b> tema claro, institucional, orientado a conversão. Navy de autoridade + laranja de ação. Mobile-first.</p>
+      <p><b>Cores — tema Claro (site):</b> Navy #001736 (primary) · #002b5c (container) · Laranja #fd8b00 (CTA) · #904d00 (hover/txt) · texto sobre laranja #603100 · tints #ffdcc3 / #d6e3ff · Bg #faf9fe / #F8F9FA / faixa #f3f4f6 · Texto #212529 / muted #6C757D / #43474f · Borda #e3e2e7 · Erro #ba1a1a.</p>
+      <p><b>Cores — tema Petrol Dark (hero / conversão / social):</b> Petrol #17292B (fundo) · #101E20 (profundo) · #1F3A3D (card) · borda #2E4A4D · Laranja vibrante #F5811E (destaque) · #DE6E12 (hover) · Texto #F4F7F6 / soft #AEC0C0.</p>
+      <p><b>Tipografia:</b> Títulos = Bebas Neue (caixa alta, +.02em) · Corpo/labels = DM Sans 400/500/600/700 · Texto principal PRETO #0D0D0D. Escala: xl 48/56 · lg 32/40 · md 24/32 · body-lg 18/28 · body 16/24 · label 14 (+.02em) · caption 12.</p>
+      <p><b>Tokens:</b> Radius 4/8/12/16/full (botão=8, card=12–16) · Container 1200px, gutter 24 · Seção 80px · Borda 1px #e3e2e7 · Sombra card 0 6px 18px rgba(0,23,54,.08).</p>
+      <p><b>Botões:</b> CTA = laranja #fd8b00, texto #603100, rounded-lg, hover #904d00 + scale · Navy sólido = alternativa de marca · Ghost = outline.</p>
+      <p><b>Cards:</b> branco, borda #e3e2e7, radius 12–16, ícone 50px em tint (navy #d6e3ff ou laranja #ffdcc3), hover eleva 4px + borda laranja clara.</p>
+      <p><b>Estrutura da home:</b> Hero → sobre/credibilidade → serviços → prova social → CTA WhatsApp → como funciona → footer. Alterna branco↔off-white, conversão em navy. 1 CTA repetido.</p>
+      <p><b>Motion:</b> fade-up 400–600ms · hover card +4px · botão active:scale-95 · float no hero · contador em stats. Evitar parallax, autoplay, neon. Respeitar reduced-motion.</p>
+      <p><b>Manter / Evitar:</b> Manter navy+laranja e prova social. Evitar excesso de laranja, muitos tons, texto denso, stock genérico, animação exagerada.</p>
+    </div>
+  </div>
+</section>
+
+<div class="footer-note">
+  DNA Visual de 23 referências + paleta oficial extraída do site local · Interpretação, não cópia · SOS Multas · Design System v2
+</div>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
