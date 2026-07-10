@@ -7,6 +7,18 @@
 - [~] Fase 3 em andamento: rotas secundárias críticas e base de tracking portadas
 - [x] Repositório Git inicializado e publicado
 
+## Sessão 2026-07-10 — Performance, Acessibilidade e correções (pós-deploy Vercel)
+PageSpeed baseline: Desktop 88 / Mobile 64 (Perf), A11y 94, BP 100, SEO 100.
+- [x] **Perf:** fontes migradas de `<link>` Google Fonts para `next/font/google` (Bebas Neue + DM Sans), self-host + preload, sem render-block
+- [x] **Perf:** home e páginas de unidade trocadas de `force-dynamic` para ISR (`revalidate = 86400`); fetch de reviews agora cacheável (`next.revalidate`) mantendo o file-cache de 90 dias
+- [x] **Perf:** `sizes` adicionado nas imagens `fill` (hero + fachadas)
+- [x] **A11y:** contraste do laranja em texto sobre fundo claro — novos tokens `--laranja-titulo:#ea580c` (título "DIREITO", 3.6:1) e `--laranja-texto-forte:#b45309` (numeração privacidade, 5:1)
+- [x] **A11y:** ordem de títulos — `<h5>` das colunas do footer viraram `<h2>` (evita pulo h2→h5); aparência inalterada (tamanho via classe)
+- [x] **CRÍTICO corrigido:** CTAs de WhatsApp saíam como `href="555133077772"` (número cru) no deploy. Nova função `toWhatsAppUrl` em `lib/config.ts` normaliza qualquer formato de env → `https://wa.me/<dígitos>`. `site-config.ts` deixou de reler a env crua.
+- [x] **SEO:** schema `LegalService` ganhou `image` e `address` (PostalAddress estruturado) na home e nas unidades — resolve warnings opcionais do Rich Results
+- [x] Build validado (21 páginas), HTML verificado (wa.me válido, schema com address/image)
+- Decisão do usuário: GTM permanece como está (`afterInteractive`) — teto natural de TBT no mobile aceito
+
 ## Concluído
 - [x] Plano criado
 - [x] Checklist criado

@@ -43,7 +43,7 @@ export default function PrivacidadePage() {
           {PRIVACY_SECTIONS.map((section) => (
             <Reveal key={section.n} className="mb-9">
               <h2 className="flex items-baseline gap-3 font-heading text-[clamp(1.4rem,2.6vw,1.8rem)] text-[var(--preto)]">
-                <span className="text-[0.8em] text-[var(--laranja)]">{section.n}</span>
+                <span className="text-[0.8em] text-[var(--laranja-texto-forte)]">{section.n}</span>
                 {section.title}
               </h2>
               <p className="mt-3 text-[1rem] leading-[1.7] text-[var(--cinza-texto)]">{section.body}</p>

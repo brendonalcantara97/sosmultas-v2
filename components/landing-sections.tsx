@@ -75,12 +75,12 @@ export function HeroSection({
           <h1 className="mt-[18px] font-heading text-[clamp(2.5rem,5.8vw,4rem)] leading-[1.02] text-[var(--preto)]">
             {unidade ? (
               <>
-                SEU <span className="text-[var(--laranja)]">DIREITO</span> DE DIRIGIR EM{" "}
+                SEU <span className="text-[var(--laranja-titulo)]">DIREITO</span> DE DIRIGIR EM{" "}
                 {unidade.heroCidade}
               </>
             ) : (
               <>
-                PROTEJA O SEU <span className="text-[var(--laranja)]">DIREITO</span> DE DIRIGIR
+                PROTEJA O SEU <span className="text-[var(--laranja-titulo)]">DIREITO</span> DE DIRIGIR
               </>
             )}
           </h1>
@@ -140,6 +140,7 @@ export function HeroSection({
               src={imageSrc}
               alt={unidade ? `Fachada da unidade ${unidade.cidade}` : "Equipe SOS Multas em atendimento"}
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className={unidade ? "object-cover object-top" : "object-cover"}
               priority
             />
@@ -356,7 +357,7 @@ export function UnitsGridSection() {
           <Reveal key={unit.slug} className="h-full">
             <article className="flex h-full flex-col overflow-hidden rounded-[16px] border border-[var(--borda)] bg-white shadow-card">
               <div className="relative aspect-[4/3] border-b border-[var(--borda)] bg-[#F8F9FA]">
-                <Image src={unit.image} alt={`Fachada da unidade ${unit.cidade}`} fill className="object-cover object-top" />
+                <Image src={unit.image} alt={`Fachada da unidade ${unit.cidade}`} fill sizes="(max-width: 1280px) 100vw, 50vw" className="object-cover object-top" />
               </div>
 
               <div className="flex h-full flex-col gap-[14px] p-7">

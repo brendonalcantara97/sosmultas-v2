@@ -13,12 +13,15 @@ import { UNIDADES } from "@/lib/config";
 import { getReviewsPayload } from "@/lib/google-reviews";
 import { siteConfig } from "@/lib/site-config";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 86400;
 
 export default async function HomePage() {
   const reviewsPayload = await getReviewsPayload("combined");
   const ratingValue = reviewsPayload.rating.toFixed(1);
   const reviewCount = String(reviewsPayload.userRatingsTotal);
+
+  const primaryUnit = UNIDADES[0];
+  const [locality, region] = primaryUnit.cidade.split("/").map((part) => part.trim());
 
   return (
     <>
@@ -29,8 +32,16 @@ export default async function HomePage() {
           name: "SOS Multas",
           url: siteConfig.siteUrl,
           description: siteConfig.description,
-          telephone: UNIDADES[0].telefone,
+          image: `${siteConfig.siteUrl}/assets/logo-sos-multas.png`,
+          telephone: primaryUnit.telefone,
           priceRange: "$$",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: primaryUnit.endereco,
+            addressLocality: locality,
+            addressRegion: region,
+            addressCountry: "BR",
+          },
           aggregateRating: {
             "@type": "AggregateRating",
             ratingValue,

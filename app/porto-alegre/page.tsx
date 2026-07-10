@@ -1,6 +1,6 @@
 import { UnitPage, getUnitMetadata } from "@/components/unit-page";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 86400;
 
 export const metadata = getUnitMetadata("poa");
 

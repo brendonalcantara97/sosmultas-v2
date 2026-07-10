@@ -63,8 +63,8 @@ const config: Config = {
         section: "80px",
       },
       fontFamily: {
-        heading: ["Bebas Neue", "sans-serif"],
-        body: ["DM Sans", "system-ui", "sans-serif"],
+        heading: ["var(--font-bebas)", "sans-serif"],
+        body: ["var(--font-dm-sans)", "system-ui", "sans-serif"],
       },
       transitionTimingFunction: {
         smooth: "cubic-bezier(.22,.61,.36,1)",

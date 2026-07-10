@@ -8,9 +8,9 @@ export const siteConfig = {
   email: CONTACT.email,
   instagram: CONTACT.instagram,
   whatsapp: {
-    main: process.env.WHATSAPP_MAIN || WHATSAPP_PRINCIPAL,
-    poa: process.env.WHATSAPP_POA || WHATSAPP_PRINCIPAL,
-    capao: process.env.WHATSAPP_CAPAO || WHATSAPP_CAPAO,
+    main: WHATSAPP_PRINCIPAL,
+    poa: WHATSAPP_PRINCIPAL,
+    capao: WHATSAPP_CAPAO,
   },
   units: UNIDADES,
 } as const;

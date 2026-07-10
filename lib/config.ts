@@ -7,11 +7,22 @@ function readValue(value: string | undefined, fallback: string) {
   return value || fallback;
 }
 
-export const WHATSAPP_PRINCIPAL = readValue(
+// Aceita número puro, com +/espaços/pontuação, "wa.me/..." ou URL completa
+// e sempre devolve um link de WhatsApp válido.
+function toWhatsAppUrl(value: string | undefined, fallback: string) {
+  const raw = (value || "").trim();
+  if (!raw) return fallback;
+  if (/^https?:\/\//i.test(raw)) return raw;
+  if (/^wa\.me\//i.test(raw)) return `https://${raw}`;
+  const digits = raw.replace(/\D/g, "");
+  return digits ? `https://wa.me/${digits}` : fallback;
+}
+
+export const WHATSAPP_PRINCIPAL = toWhatsAppUrl(
   process.env.WHATSAPP_MAIN || process.env.WHATSAPP_POA,
   DEFAULT_WHATSAPP_PRINCIPAL
 );
-export const WHATSAPP_CAPAO = readValue(
+export const WHATSAPP_CAPAO = toWhatsAppUrl(
   process.env.WHATSAPP_CAPAO,
   DEFAULT_WHATSAPP_CAPAO
 );

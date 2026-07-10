@@ -163,7 +163,7 @@ async function fetchPlaceDetails(placeId: string): Promise<PlaceDetails | null> 
   endpoint.searchParams.set("reviews_sort", "newest");
   endpoint.searchParams.set("key", serverEnv.GOOGLE_API_KEY);
 
-  const res = await fetch(endpoint.toString(), { cache: "no-store" });
+  const res = await fetch(endpoint.toString(), { next: { revalidate: 86400 } });
   if (!res.ok) {
     throw new Error(`Google API HTTP ${res.status}`);
   }

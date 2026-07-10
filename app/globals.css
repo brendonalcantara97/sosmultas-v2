@@ -9,6 +9,9 @@
   --laranja-hover: #904d00;
   --laranja-texto: #603100;
   --laranja-tint: #ffdcc3;
+  /* Tons de laranja acessíveis para TEXTO sobre fundo claro (WCAG) */
+  --laranja-titulo: #ea580c; /* texto grande: 3.6:1 */
+  --laranja-texto-forte: #b45309; /* texto normal: 5:1 */
   --navy-tint: #d6e3ff;
   --preto: #0d0d0d;
   --cinza-texto: #43474f;
@@ -42,7 +45,7 @@ body {
   margin: 0;
   background: white;
   color: var(--preto);
-  font-family: "DM Sans", system-ui, sans-serif;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -54,7 +57,7 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-bebas), sans-serif;
   font-weight: 400;
   letter-spacing: 0.02em;
   line-height: 1.02;

@@ -57,6 +57,7 @@ export async function UnitPage({
   const reviewsPayload = await getReviewsPayload(unitKey);
   const ratingValue = reviewsPayload.rating.toFixed(1);
   const reviewCount = String(reviewsPayload.userRatingsTotal);
+  const [locality, region] = unit.cidade.split("/").map((part) => part.trim());
 
   return (
     <>
@@ -67,8 +68,15 @@ export async function UnitPage({
           name: `SOS Multas - ${unit.cidade}`,
           url: `${siteConfig.siteUrl}${path}`,
           description: `Atendimento da SOS Multas em ${unit.cidade}.`,
+          image: `${siteConfig.siteUrl}${unit.image}`,
           telephone: unit.telefone,
-          address: unit.endereco,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: unit.endereco,
+            addressLocality: locality,
+            addressRegion: region,
+            addressCountry: "BR",
+          },
           priceRange: "$$",
           aggregateRating: {
             "@type": "AggregateRating",

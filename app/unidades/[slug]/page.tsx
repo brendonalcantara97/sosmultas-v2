@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { UnitPage, getUnitBySlugForPage, getUnitMetadata } from "@/components/unit-page";
 import { UNIDADES } from "@/lib/config";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 86400;
 
 export function generateStaticParams() {
   return UNIDADES.map((unit) => ({ slug: unit.slug }));

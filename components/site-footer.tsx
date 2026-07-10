@@ -21,9 +21,9 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h5 className="mb-[14px] font-heading text-[1rem] uppercase tracking-[0.08em] text-[#904d00]">
+            <h2 className="mb-[14px] font-heading text-[1rem] uppercase tracking-[0.08em] text-[#904d00]">
               Serviços
-            </h5>
+            </h2>
             <nav className="flex flex-col gap-[9px]">
               <Link href="/#servicos" className="text-[0.9rem] font-medium text-[#43474f] hover:text-[var(--laranja)]">
                 Suspensão &amp; Cassação
@@ -38,9 +38,9 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h5 className="mb-[14px] font-heading text-[1rem] uppercase tracking-[0.08em] text-[#904d00]">
+            <h2 className="mb-[14px] font-heading text-[1rem] uppercase tracking-[0.08em] text-[#904d00]">
               Empresa
-            </h5>
+            </h2>
             <nav className="flex flex-col gap-[9px]">
               <Link href="/#como-funciona" className="text-[0.9rem] font-medium text-[#43474f] hover:text-[var(--laranja)]">
                 Como funciona
@@ -55,9 +55,9 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h5 className="mb-[14px] font-heading text-[1rem] uppercase tracking-[0.08em] text-[#904d00]">
+            <h2 className="mb-[14px] font-heading text-[1rem] uppercase tracking-[0.08em] text-[#904d00]">
               Fale conosco
-            </h5>
+            </h2>
             <nav className="flex flex-col gap-[9px]">
               <a
                 href={WHATSAPP_PRINCIPAL}
