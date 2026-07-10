@@ -27,7 +27,8 @@ Este repositório contém o plano, checklist, design system e arquivos de execu�
 ## Working rules
 
 - Preserve copy, tracking, SEO and important URLs.
-- Use the design system as visual source of truth.
+- Treat the new design system as the source of truth for the visual refactor.
+- The current codebase is a functional baseline; it still needs to be restyled to match the design system.
 - Save progress in `REFATORACAO-STATE.md` if context runs low.
 - Use the appropriate skills when needed:
   - `writing-plans`

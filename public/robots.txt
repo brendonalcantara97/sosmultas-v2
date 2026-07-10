@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sosmultas.net.br/sitemap.xml

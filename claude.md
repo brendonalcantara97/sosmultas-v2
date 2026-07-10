@@ -1,68 +1,78 @@
-# CLAUDE PROMPT — SOS Multas Refatoração
+# CLAUDE.md
 
-Você está atuando como assistente de implementação para a refatoração do site SOS Multas.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Trabalhe na pasta:
-/Users/brendonalcantara/Desktop/sosmultas-v2
+## Project Overview
 
-Contexto obrigatório:
-- Plano: /Users/brendonalcantara/Desktop/sosmultas-v2/PLANO-REFATORACAO-SOS-MULTAS.md
-- Checklist: /Users/brendonalcantara/Desktop/sosmultas-v2/CHECKLIST-EXECUTAVEL-REFATORACAO-SOS-MULTAS.md
-- Design system: /Users/brendonalcantara/Desktop/sosmultas-v2/SOS-Multas-Design-System.html
-- Site base atual: /Users/brendonalcantara/Desktop/Megabrain/mega-brain/sites/sos-multas-lp
+SOS Multas is a conversion-focused landing page site for a traffic ticket consulting service in Brazil. The project is a Next.js 15 + React 19 refactoring of an existing static site.
 
-Objetivo:
-Migrar/refatorar o site com foco em conversão e performance, sem perder:
-- textos principais
-- tracking
-- SEO
-- URLs importantes
-- identidade visual
+**Primary goal:** Migrate/refactor the site preserving copy, tracking (GTM), SEO, URLs, and visual identity while improving performance and conversion.
 
-Regras obrigatórias:
-- Siga o checklist por fases.
-- Não crie nova copy desnecessária.
-- Preserve as CTAs de WhatsApp.
-- Preserve ou melhore o tracking.
-- Use o design system como fonte de verdade para visual.
-- Faça mudanças pequenas e verificáveis.
-- Se ficar sem espaço de contexto, salve o estado do trabalho antes de parar.
+## Development Commands
 
-Antes de interromper por qualquer motivo, atualize este arquivo de estado:
-/Users/brendonalcantara/Desktop/sosmultas-v2/REFATORACAO-STATE.md
+```bash
+npm run dev        # Start development server
+npm run build      # Production build
+npm run start      # Start production server
+npm run typecheck  # TypeScript check (tsc --noEmit)
+```
 
-Esse arquivo deve conter:
-- fase atual
-- tarefas concluídas
-- tarefas em andamento
-- tarefas pendentes
-- bloqueios
-- decisões importantes
-- arquivos alterados
-- próximos passos
+No test runner is configured yet.
 
-Ordem recomendada:
-1. baseline e backup
-2. base Next.js
-3. tokens/design system
-4. homepage
-5. páginas de apoio
-6. tracking
-7. SEO/performance
-8. QA
-9. deploy
+## Architecture
 
-Sempre responda de forma objetiva e operacional:
-- o que foi feito
-- o que foi validado
-- o que falta
-- qual é o próximo passo
+### App Router Structure (Next.js 15)
+- `app/layout.tsx` - Root layout with GTM, header, footer, WhatsApp FAB
+- `app/page.tsx` - Homepage with all landing sections
+- `app/[city]/page.tsx` - City-specific landing pages (porto-alegre, capao-da-canoa)
+- `app/unidades/[slug]/page.tsx` - Dynamic unit pages
+- `app/api/` - Route handlers for tracking, reviews, map iframe
 
-Skills a usar quando necessário:
-- writing-plans: para planejar fases grandes ou reorganizações
-- subagent-driven-development: para dividir tarefas e revisar por etapas
-- requesting-code-review: para checagem antes de commit/push
-- test-driven-development: para mudanças com lógica e testes
-- systematic-debugging: para investigar bugs, falhas ou regressões
+### Key Directories
+- `components/` - UI components (site-header, site-footer, landing-sections, ui/)
+- `components/ui/` - Design system primitives (button, card, section)
+- `lib/` - Configuration and utilities
+  - `lib/config.ts` - Unit data (UNIDADES), WhatsApp links, contact info
+  - `lib/env.ts` - Server environment variable schema and validation
+  - `lib/site-config.ts` - Site metadata (name, description, URL)
 
-Se houver necessidade de salvar progresso, escreva no REFATORACAO-STATE.md antes de seguir adiante.
+### Design System
+- Tailwind CSS with custom tokens in `tailwind.config.ts`
+- Colors: `navy`, `accent` (orange), `petrol`, `ink`, `surface`, `vivid`
+- Fonts: Bebas Neue (headings), DM Sans (body)
+- Reference: `SOS-Multas-Design-System.html`
+
+### Environment Variables
+Server-side only (never expose to client):
+- `GTM_ID` - Google Tag Manager
+- `GOOGLE_API_KEY`, `GOOGLE_PLACE_ID_*` - Reviews/maps API
+- `WHATSAPP_*` - WhatsApp routing numbers
+- `APPS_SCRIPT_URL` - Form submission endpoint
+
+See `.env.example` for full list.
+
+## Refactoring Context
+
+### Source of Truth
+- Design system: `SOS-Multas-Design-System.html`
+- Refactoring plan: `PLANO-REFATORACAO-SOS-MULTAS.md`
+- Checklist: `CHECKLIST-EXECUTAVEL-REFATORACAO-SOS-MULTAS.md`
+- Original site: `/Users/brendonalcantara/Desktop/Megabrain/mega-brain/sites/sos-multas-lp`
+
+### Progress Tracking
+Save state to `REFATORACAO-STATE.md` before stopping work. Include:
+- Current phase
+- Completed/in-progress/pending tasks
+- Blockers and decisions
+- Changed files
+- Next steps
+
+### Constraints
+- Preserve existing copy (no unnecessary rewrites)
+- Preserve WhatsApp CTAs and tracking
+- Keep `GOOGLE_API_KEY` server-side only
+- Follow phases: baseline -> Next.js base -> tokens -> homepage -> support pages -> tracking -> SEO -> QA -> deploy
+
+## Repository
+
+- GitHub: https://github.com/brendonalcantara97/sosmultas-v2.git
