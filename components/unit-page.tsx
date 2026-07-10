@@ -58,6 +58,7 @@ export async function UnitPage({
   const ratingValue = reviewsPayload.rating.toFixed(1);
   const reviewCount = String(reviewsPayload.userRatingsTotal);
   const [locality, region] = unit.cidade.split("/").map((part) => part.trim());
+  const streetAddress = unit.endereco.replace(`, ${locality} - ${region}.`, "");
 
   return (
     <>
@@ -72,9 +73,10 @@ export async function UnitPage({
           telephone: unit.telefone,
           address: {
             "@type": "PostalAddress",
-            streetAddress: unit.endereco,
+            streetAddress,
             addressLocality: locality,
             addressRegion: region,
+            postalCode: unit.cep,
             addressCountry: "BR",
           },
           priceRange: "$$",

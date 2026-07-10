@@ -22,6 +22,7 @@ export default async function HomePage() {
 
   const primaryUnit = UNIDADES[0];
   const [locality, region] = primaryUnit.cidade.split("/").map((part) => part.trim());
+  const streetAddress = primaryUnit.endereco.replace(`, ${locality} - ${region}.`, "");
 
   return (
     <>
@@ -37,9 +38,10 @@ export default async function HomePage() {
           priceRange: "$$",
           address: {
             "@type": "PostalAddress",
-            streetAddress: primaryUnit.endereco,
+            streetAddress,
             addressLocality: locality,
             addressRegion: region,
+            postalCode: primaryUnit.cep,
             addressCountry: "BR",
           },
           aggregateRating: {

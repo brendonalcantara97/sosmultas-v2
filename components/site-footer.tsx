@@ -77,7 +77,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <p className="pt-[22px] text-center text-[0.82rem] text-[#6C757D]">
+        <p className="pt-[22px] text-center text-[0.82rem] text-[var(--muted)]">
           © 2026 SOS Multas — Assessoria de Trânsito. Todos os direitos reservados.
         </p>
       </div>
