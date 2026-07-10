@@ -57,6 +57,7 @@ See `.env.example` for full list.
 - Design system: `SOS-Multas-Design-System.html`
 - Refactoring plan: `PLANO-REFATORACAO-SOS-MULTAS.md`
 - Checklist: `CHECKLIST-EXECUTAVEL-REFATORACAO-SOS-MULTAS.md`
+- **Quality guardrails (Perf/A11y/SEO): `PADROES-QUALIDADE-SOS-MULTAS.md`**
 - Original site: `/Users/brendonalcantara/Desktop/Megabrain/mega-brain/sites/sos-multas-lp`
 
 ### Progress Tracking
@@ -72,6 +73,16 @@ Save state to `REFATORACAO-STATE.md` before stopping work. Include:
 - Preserve WhatsApp CTAs and tracking
 - Keep `GOOGLE_API_KEY` server-side only
 - Follow phases: baseline -> Next.js base -> tokens -> homepage -> support pages -> tracking -> SEO -> QA -> deploy
+
+### Quality Standards (apply by default — full detail in `PADROES-QUALIDADE-SOS-MULTAS.md`)
+- **Fonts:** `next/font/google` only. Never a `<link>` to fonts.googleapis.com.
+- **Rendering:** content pages use `export const revalidate = N` (ISR). Never `force-dynamic` just for a fetch. External fetches use `{ next: { revalidate } }`, never `{ cache: "no-store" }` on a static page.
+- **Images:** `next/image` always; every `fill` image needs `sizes`; LCP image gets `priority`. AVIF enabled in `next.config.ts`.
+- **Contrast (WCAG AA):** text on light bg ≥4.5:1 (normal) / ≥3:1 (large). Orange as text on light bg → use `--laranja-titulo` or `--laranja-texto-forte`; never `--laranja` (#fd8b00). Secondary gray = `--muted` (#626973), not #6c757d.
+- **Headings:** one `<h1>` per page, no skipped levels (footer/column titles are `<h2>`). Level is semantic; size comes from Tailwind classes.
+- **WhatsApp links:** always from `siteConfig.whatsapp.*` / `toWhatsAppUrl()` in `lib/config.ts`. Never put a phone env var directly in an `href`.
+- **Schema:** `LegalService` includes `image` + structured `address` (`PostalAddress` with `postalCode`). Unit data (incl. `cep`) lives in `lib/config.ts`.
+- **GTM:** stays `afterInteractive`. Do NOT lazy-load/defer it for score. Mobile Performance ceiling ~75-85 is accepted (tracking > points).
 
 ## Repository
 
