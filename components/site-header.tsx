@@ -2,26 +2,21 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { InstagramIcon, MenuIcon, WhatsAppIcon } from "@/components/home-icons";
 import { siteConfig } from "@/lib/site-config";
 
-const navItems = [
-  { href: "/unidades", label: "Unidades" },
-  { href: "/#como-funciona", label: "Como Funciona" },
-  { href: "/privacidade", label: "Privacidade" },
-] as const;
-
 function Wordmark({ inverted = false }: { inverted?: boolean }) {
   return (
     <span className="flex items-center">
       <Image
-        src="/assets/logo.webp"
+        src="/assets/logo-grande.webp"
         alt="SOS Multas"
-        width={248}
-        height={60}
-        className={`block h-[60px] w-auto shrink-0 ${inverted ? "brightness-0 invert" : ""}`}
+        width={720}
+        height={552}
+        className={`block h-[60px] w-auto shrink-0 min-[1100px]:h-[76px] ${inverted ? "brightness-0 invert" : ""}`}
         priority
       />
     </span>
@@ -30,30 +25,43 @@ function Wordmark({ inverted = false }: { inverted?: boolean }) {
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const hasLocalServicesSection =
+    pathname === "/" ||
+    pathname === "/porto-alegre" ||
+    pathname === "/capao-da-canoa" ||
+    pathname.startsWith("/unidades/");
+  const navItems = [
+    { href: "/unidades", label: "Unidades" },
+    { href: hasLocalServicesSection ? "#servicos" : "/#servicos", label: "Serviços" },
+    { href: "/#como-funciona", label: "Como Funciona" },
+    { href: "/privacidade", label: "Privacidade" },
+  ] as const;
 
   return (
     <header className="sticky top-0 z-[100] border-b border-[var(--borda)] border-t-[3px] border-t-[var(--navy)] bg-white/90 backdrop-blur-md">
-      <div className="container-shell flex h-[72px] items-center justify-between gap-5">
+      <div className="container-shell flex h-[76px] items-center justify-between gap-5 min-[1100px]:h-[84px]">
         <Link href="/" aria-label="SOS Multas" className="flex flex-none items-center">
           <Wordmark />
         </Link>
 
         <button
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--borda)] text-[var(--preto)] min-[861px]:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--borda)] text-[var(--preto)] min-[1100px]:hidden"
           onClick={() => setMenuOpen((value) => !value)}
           aria-expanded={menuOpen}
-          aria-label="Abrir menu"
+          aria-controls="mobile-navigation"
+          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
         >
-          <MenuIcon className="h-5 w-5" />
+          <MenuIcon className="h-6 w-6" />
         </button>
 
-        <div className="hidden items-center gap-6 min-[861px]:flex">
-          <nav className="flex items-center gap-5">
+        <div className="hidden items-center gap-5 min-[1100px]:flex">
+          <nav className="flex items-center gap-4">
             {navItems.map((item, index) => (
-              <div key={item.href} className="flex items-center gap-5">
+              <div key={item.label} className="flex items-center gap-4">
                 {index > 0 ? <span className="h-4 w-px bg-[var(--borda)]" /> : null}
-                <Link className="text-[0.95rem] font-semibold text-[var(--cinza-texto)] transition hover:text-[var(--preto)]" href={item.href}>
+                <Link className="text-[1rem] font-semibold text-[var(--cinza-texto)] transition hover:text-[var(--preto)]" href={item.href}>
                   {item.label}
                 </Link>
               </div>
@@ -78,25 +86,25 @@ export function SiteHeader() {
               target="_blank"
               rel="noopener"
               aria-label="Instagram"
-              className="grid h-[38px] w-[38px] place-items-center rounded-full border border-[var(--borda)] text-[var(--cinza-texto)] transition hover:border-[var(--laranja-hover)] hover:text-[var(--laranja-hover)]"
+              className="grid h-[42px] w-[42px] place-items-center rounded-full border border-[var(--borda)] text-[var(--cinza-texto)] transition hover:border-[var(--laranja-hover)] hover:text-[var(--laranja-hover)]"
             >
-              <InstagramIcon className="h-[18px] w-[18px]" />
+              <InstagramIcon className="h-5 w-5" />
             </a>
             <a
               href={siteConfig.whatsapp.main}
               target="_blank"
               rel="noopener"
               aria-label="WhatsApp"
-              className="grid h-[38px] w-[38px] place-items-center rounded-full border border-[var(--borda)] text-[var(--cinza-texto)] transition hover:border-[#25D366] hover:text-[#25D366]"
+              className="grid h-[42px] w-[42px] place-items-center rounded-full border border-[var(--borda)] text-[var(--cinza-texto)] transition hover:border-[#25D366] hover:text-[#25D366]"
             >
-              <WhatsAppIcon className="h-[18px] w-[18px]" />
+              <WhatsAppIcon className="h-5 w-5" />
             </a>
           </div>
         </div>
       </div>
 
       {menuOpen ? (
-        <div className="border-t border-[var(--borda)] bg-white px-6 py-5 min-[861px]:hidden">
+        <div id="mobile-navigation" className="border-t border-[var(--borda)] bg-white px-6 py-5 min-[1100px]:hidden">
           <nav className="flex flex-col gap-4">
             {navItems.map((item) => (
               <Link

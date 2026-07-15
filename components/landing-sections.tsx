@@ -62,7 +62,7 @@ export function HeroSection({
   const heroReviewers = testimonialItems.slice(0, 4);
 
   return (
-    <section className="relative overflow-hidden bg-[var(--bg)] py-[clamp(44px,7vw,84px)]">
+    <section className="relative overflow-hidden bg-[var(--bg)] pb-[clamp(44px,7vw,84px)] pt-[clamp(28px,4vw,48px)]">
       <div className="pointer-events-none absolute right-[-8%] top-[-12%] h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(253,139,0,.16),transparent_62%)]" />
       <div className="pointer-events-none absolute bottom-[-25%] left-[-10%] h-[460px] w-[460px] rounded-full bg-[radial-gradient(circle,rgba(0,23,54,.05),transparent_60%)]" />
 
@@ -202,7 +202,7 @@ export function AboutSection({ googleRating = "4,9" }: { googleRating?: string }
 
 export function ServicesSection() {
   return (
-    <section className="bg-[var(--bg-alt)] py-section">
+    <section id="servicos" className="scroll-mt-[80px] bg-[var(--bg-alt)] py-section min-[1100px]:scroll-mt-[88px]">
       <div className="container-shell">
         <Reveal className="mb-10 max-w-[720px]">
           <span className="eyebrow">Serviços</span>
@@ -316,7 +316,7 @@ export function WhatsAppCtaSection({ unidade }: { unidade?: Unidade }) {
 
 export function ProcessSection() {
   return (
-    <section id="como-funciona" className="bg-[var(--bg-alt)] py-section">
+    <section id="como-funciona" className="scroll-mt-[80px] bg-[var(--bg-alt)] py-section min-[1100px]:scroll-mt-[88px]">
       <div className="container-shell">
         <Reveal className="mb-10 max-w-[720px]">
           <span className="eyebrow">Processo</span>

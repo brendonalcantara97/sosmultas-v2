@@ -38,7 +38,7 @@ export default function UnidadesPage() {
         })}
       </Script>
 
-      <section className="border-b border-[var(--borda)] bg-[var(--bg)] pb-[clamp(32px,5vw,48px)] pt-[clamp(48px,7vw,80px)]">
+      <section className="border-b border-[var(--borda)] bg-[var(--bg)] pb-[clamp(32px,5vw,48px)] pt-[clamp(32px,5vw,56px)]">
         <Reveal className="container-shell">
           <span className="eyebrow">Onde estamos</span>
           <h1 className="mt-3 font-heading text-[clamp(2.4rem,5.5vw,3.6rem)] text-[var(--preto)]">Nossas unidades</h1>

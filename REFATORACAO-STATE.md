@@ -19,6 +19,27 @@ PageSpeed baseline: Desktop 88 / Mobile 64 (Perf), A11y 94, BP 100, SEO 100.
 - [x] Build validado (21 páginas), HTML verificado (wa.me válido, schema com address/image)
 - Decisão do usuário: GTM permanece como está (`afterInteractive`) — teto natural de TBT no mobile aceito
 
+### Rodada 2 (mesmo dia) — pós 2º PageSpeed (Desktop 99 / Mobile 76, A11y 96)
+- [x] **A11y → 100:** `--muted` escurecido de `#6c757d` para `#626973` (passava raspando em ~4.46:1, agora ~5.3:1); rodapé passou a usar o token em vez de `#6C757D` hardcoded
+- [x] **SEO:** adicionado campo `cep` nas unidades (`lib/config.ts`) e `postalCode` no `PostalAddress` (home + unidades); `streetAddress` limpo (sem repetir cidade/UF). CEPs: POA `91010-003`, Capão `95555-000`
+- [x] **Perf:** AVIF habilitado no `next/image` (`images.formats` em `next.config.ts`)
+- [x] Documentação: criado `PADROES-QUALIDADE-SOS-MULTAS.md` (guardrails Perf/A11y/SEO) + resumo no `CLAUDE.md` para futuras sessões
+- [x] Documentação: criado `PLANO-TRACKING-SERVER-SIDE-SOS-MULTAS.md` (roadmap para tracking server-side sem GTM)
+
+### Deploys / Git
+- `main` no GitHub inclui: perf+a11y+whatsapp+schema (`1909803`) e CEP+contraste+AVIF (`ce1c6ee`) — **já publicados**.
+- **Local, ainda NÃO enviado (a pedido do usuário):** commit dos docs de padrões/plano. Push só quando o usuário autorizar.
+
+## Status do projeto (2026-07-10)
+- ✅ **Projeto APROVADO pelos clientes** (como um todo).
+- 🕐 **Migração de DNS agendada para a madrugada de 2026-07-11** — apontar `sosmultas.net.br` para o app na Vercel.
+- Pré-DNS conferir: variáveis de ambiente de produção na Vercel (GTM_ID, WHATSAPP_*, GOOGLE_*), redirects legados e canonical apontando para o domínio final.
+
+## Roadmap / próximas ideias (documentadas, não implementadas)
+- **Tracking server-side sem GTM** (Meta CAPI + Google Ads API por gclid + GA4 MP) — ver `PLANO-TRACKING-SERVER-SIDE-SOS-MULTAS.md`. Ganho esperado: mobile ~76 → ~88-93 + dados first-party. Decisão de seguir fica para depois.
+- **Anti-duplicação de conversão:** Google Ads pela API (gclid) como fonte única de lance; GA4 só relatório (não importar a mesma conversão para o Ads).
+- **WhatsApp:** avaliar `?text=` pré-preenchido (aumenta envio real) e futura WhatsApp Cloud API (webhook para medir mensagem recebida, não só o clique).
+
 ## Concluído
 - [x] Plano criado
 - [x] Checklist criado
@@ -204,3 +225,31 @@ PageSpeed baseline: Desktop 88 / Mobile 64 (Perf), A11y 94, BP 100, SEO 100.
 2. [ ] **Footer 4 colunas** - Implementar layout conforme referência html_standalone/index.html
 
 ### Regra: SEMPRE ler o arquivo atual antes de editar
+
+## Registro — 2026-07-15 — solicitação do Ribeiro: cabeçalho e Serviços
+
+### Alterações locais, ainda não publicadas
+- [x] Cabeçalho encorpado: altura desktop de `72px` para `84px` e mobile para `76px`.
+- [x] Logo do cabeçalho ampliado e trocado para o ativo de maior resolução (`/assets/logo-grande.webp`).
+- [x] Tipografia dos links do menu aumentada de `0.95rem` para `1rem`.
+- [x] Ícones sociais aumentados de `38px` para `42px`, com ícones internos de `20px`.
+- [x] Novo item `Serviços` incluído nos menus desktop e mobile.
+- [x] Ordem final do menu aplicada no cabeçalho e no bloco `Empresa` do rodapé: `Unidades → Serviços → Como funciona → Privacidade`.
+- [x] Seção de serviços recebeu a âncora `#servicos` com compensação para o cabeçalho sticky.
+- [x] Na home e nas páginas de unidade, `Serviços` rola para a seção local; em rotas sem essa seção, aponta para `/#servicos`.
+- [x] Breakpoint do menu completo ajustado para `1100px` para evitar aperto/sobreposição com o quarto item; abaixo disso permanece o menu hambúrguer.
+- [x] Feedback complementar do Ribeiro reinterpretado com a imagem: a marca laranja apontava espaço excessivo abaixo do cabeçalho, não pedido de aumentar esse vão.
+- [x] Espaço superior do hero reduzido de até `84px` para até `48px` na home e nas páginas individuais das unidades, preservando o espaçamento inferior.
+- [x] Espaço superior da página `/unidades` reduzido de até `80px` para até `56px`.
+
+### Validação
+- `npm run typecheck`: aprovado.
+- `npm run build`: aprovado, 21 páginas geradas.
+- QA visual desktop em 1280px: sem cortes ou sobreposição entre logo, quatro itens, CTA e ícones.
+- Âncora validada na home e em `/porto-alegre`: destino permanece aproximadamente alinhado abaixo do cabeçalho sticky.
+- Preview local disponível em `http://localhost:4174` para revisão humana.
+
+### Controle de publicação
+- Nenhum commit criado nesta rodada.
+- Nenhum push para o GitHub executado.
+- Próxima ação: Brendon revisar o preview local e aprovar ou solicitar refinamentos antes do commit/push.

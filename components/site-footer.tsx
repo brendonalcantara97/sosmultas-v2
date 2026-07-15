@@ -42,11 +42,14 @@ export function SiteFooter() {
               Empresa
             </h2>
             <nav className="flex flex-col gap-[9px]">
-              <Link href="/#como-funciona" className="text-[0.9rem] font-medium text-[#43474f] hover:text-[var(--laranja)]">
-                Como funciona
-              </Link>
               <Link href="/unidades" className="text-[0.9rem] font-medium text-[#43474f] hover:text-[var(--laranja)]">
                 Unidades
+              </Link>
+              <Link href="/#servicos" className="text-[0.9rem] font-medium text-[#43474f] hover:text-[var(--laranja)]">
+                Serviços
+              </Link>
+              <Link href="/#como-funciona" className="text-[0.9rem] font-medium text-[#43474f] hover:text-[var(--laranja)]">
+                Como funciona
               </Link>
               <Link href="/privacidade" className="text-[0.9rem] font-medium text-[#43474f] hover:text-[var(--laranja)]">
                 Privacidade
